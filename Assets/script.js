@@ -43,4 +43,23 @@ $(document).ready(function () {
       hourElement.addClass("future");
     }
   });
+  //save button when clicked, creates variable description. it then accesses the current element,
+  //and asks for the sibling descripton and asks attains its value. we creat variable block id
+  //it accesses the current block and asks for the closest time-block class and its id name.
+  //these variabels then are stored in the local storage to bring out at another time.
+  $(".btn").on("click", function () {
+    let description = $(this).siblings(".description").val();
+    let blockID = $(this).closest(".time-block").attr("id");
+    localStorage.setItem(blockID, description);
+  });
+
+  //we are putting the saved data that is located in the local storage back into the correct blockId.
+  //we create variabel blockId and attain the hourelemnt id
+  //we create variable savedDescription and dfine it as out saved values in the local storage
+  //we then find the hourElement class description and put in the value of the local storage item.
+  $(hoursWorkDay).each(function (index, hourElement) {
+    let blockId = hourElement.attr("id");
+    let savedDescription = localStorage.getItem(blockId);
+    hourElement.find(".description").val(savedDescription);
+  });
 });
